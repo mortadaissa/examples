@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Numbers</title>
+</head>
+<body>
+  <h1>Add Two Numbers</h1>
+  <form action="/add" method="get">
+    <label for="num1">Number 1:</label>
+    <input type="text" id="num1" name="num1" required><br><br>
+    <label for="num2">Number 2:</label>
+    <input type="text" id="num2" name="num2" required><br><br>
+    <input type="submit" value="Add">
+  </form>
+  <p>Result: <span id="result">-</span></p>
+  <script>
+    // JavaScript to fetch and display the result
+    document.querySelector('form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const response = await fetch(`/add?num1=${num1}&num2=${num2}`);
+      const data = await response.json();
+      document.getElementById('result').textContent = data.result;
+    });
+  </script>
+</body>
+</html>

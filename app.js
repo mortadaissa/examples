@@ -1,18 +1,23 @@
-// Import the required modules
 const express = require('express');
-
-// Create an Express application
 const app = express();
-
-// Define a route that responds with "Hello, World!"
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
-// Specify the port to listen on
 const port = 3000;
 
-// Start the server
+// Serve static HTML files
+app.use(express.static('public'));
+
+// Define a route to handle the addition
+app.get('/add', (req, res) => {
+  // Get the query parameters (numbers to add)
+  const num1 = parseFloat(req.query.num1) || 0;
+  const num2 = parseFloat(req.query.num2) || 0;
+
+  // Calculate the sum
+  const sum = num1 + num2;
+
+  // Send the result as JSON
+  res.json({ result: sum });
+});
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is listening at http://localhost:${port}`);
 });
